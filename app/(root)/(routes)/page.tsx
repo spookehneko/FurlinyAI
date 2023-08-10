@@ -1,8 +1,9 @@
 import React from 'react'
+import { UserButton } from "@clerk/nextjs";
 
 function RootPage() {
   return (
-    <div>Protected by Auth</div>
+    <UserButton afterSignOutUrl="/"/>
   )
 }
 
