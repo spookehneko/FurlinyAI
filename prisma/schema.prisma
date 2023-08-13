@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -11,6 +12,26 @@ datasource db {
 }
 
 model Category {
-  id         String @id @default(uuid())
-  name       String
+  id            String @id @default(uuid())
+  name          String
+  bots          Bot[]     
+}
+
+model Bot {
+  id            String @id @default(uuid())
+  useId         String
+  useName       String
+  src           String
+  name          String @db.Char(255)
+  description   String 
+  instructions  String @db.Char(255)
+  seed          String @db.Char(255)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  category      Category @relation(fields: [categoryId], references: [id])
+  categoryId    String
+
+  @@index([categoryId])
 }

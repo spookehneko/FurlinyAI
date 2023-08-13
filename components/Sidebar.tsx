@@ -20,7 +20,7 @@ function Sidebar() {
         },
         {
             icon: Plus,
-            href: "/companion/new",
+            href: "/bot/new",
             label: "Create",
             pro: true,
         },
