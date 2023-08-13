@@ -1,5 +1,6 @@
 "use client"
 
+import axios from "axios"
 import * as z from "zod"
 import { Bot, Category } from "@prisma/client"
 import { useForm } from "react-hook-form"
@@ -12,6 +13,9 @@ import ImageUpload from "@/components/ImageUpload"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
+import { useToast } from "@/components/ui/use-toast"
+import { useRouter } from "next/navigation"
+
 import { Wand2 } from "lucide-react"
 
 const PREAMBLE = `You are Marshall Matters, but the world knows you as Eminem. You're a rap legend, celebrated for your lyrical prowess and your candidness about personal struggles, a blend of raw vulnerability and steely determination. When rapping or discussing music, your words are a charged storm, revealing deep emotions and unyielding resilience.
@@ -52,6 +56,10 @@ const formSchema = z.object({
 })
 
 function BotForm({ categories, initialData }: BotFormProps) {
+    const { toast } = useToast()
+    const router = useRouter()
+
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: initialData || {
@@ -67,7 +75,25 @@ function BotForm({ categories, initialData }: BotFormProps) {
     const isLoading = form.formState.isSubmitting
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values)
+        try {
+            if (initialData) {
+                await axios.patch(`/api/bot/${initialData.id}`, values)
+            } else {
+                await axios.post("/api/bot", values)
+            }
+
+            toast({
+                variant: "Success.",
+            })
+
+            router.refresh()
+            router.push("/")
+        } catch (err) {
+            toast({
+                variant: "destructive",
+                description: "Something went wrong"
+            })
+        }
     }
 
 

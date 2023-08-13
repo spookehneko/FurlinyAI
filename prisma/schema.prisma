@@ -19,13 +19,13 @@ model Category {
 
 model Bot {
   id            String @id @default(uuid())
-  useId         String
-  useName       String
+  userId        String
+  userName      String
   src           String
   name          String @db.Char(255)
   description   String 
-  instructions  String @db.Char(255)
-  seed          String @db.Char(255)
+  instructions  String @db.Char(1000)
+  seed          String @db.Char(1000)
 
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
