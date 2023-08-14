@@ -1,4 +1,5 @@
 import prismadb from "@/lib/prismadb"
+import { auth, redirectToSignIn } from "@clerk/nextjs"
 
 import BotForm from "./components/BotForm"
 
@@ -9,9 +10,16 @@ interface BotIdPageProps {
 }
 
 async function BotIdPage({ params } : BotIdPageProps) {
+    const { userId } = auth()
+
+    if (!userId) {
+        return redirectToSignIn()
+    }
+
     const bot = await prismadb.bot.findUnique({
         where: {
-            id: params.botId
+            id: params.botId,
+            userId
         }
     })
 
