@@ -36,7 +36,7 @@ function ChatMessages({
     <div className="flex-1 overflow-y-auto pr-4">
         <ChatMessage isLoading={fakeLoading} src={bot.src} role="system" content={`Hello, I am ${bot.name}, ${bot.description}`} />
         {messages.map((message) => (
-          <ChatMessage key={message.content} role={message.role} content={message.content} src={message.src} />
+          <ChatMessage key={message.content} role={message.role} content={message.content} src={bot.src} />
         ))}
         {isLoading && (
           <ChatMessage role="system" src={bot.src} isLoading />
