@@ -83,8 +83,9 @@ function BotForm({ categories, initialData }: BotFormProps) {
             }
 
             toast({
-                variant: "Success.",
-            })
+                description: "Success.",
+                duration: 3000,
+              });
 
             router.refresh()
             router.push("/")
