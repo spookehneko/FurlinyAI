@@ -1,6 +1,6 @@
 "use client"
 
-import { chatRequestOptions } from "ai"
+import { ChatRequestOptions } from "ai";
 import { ChangeEvent, FormEvent } from "react"
 
 import { Input } from "./ui/input";
@@ -10,7 +10,7 @@ import { SendHorizonal } from "lucide-react"
 interface ChatFormProps {
     input: string;
     handleInputChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;
-    onSubmit: (e: FormEvent<HTMLFormElement>, chatRequestOptions?: chatRequestOptions | undefined) => void;
+    onSubmit: (e: FormEvent<HTMLFormElement>, chatRequestOptions?: ChatRequestOptions | undefined) => void;
     isLoading: boolean;
 }
 
